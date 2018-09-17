@@ -1,0 +1,38 @@
+{
+  "name": "web3Test",
+  "version": "1.0.0",
+  "description": "node.js web3 programa",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "bip39": "^2.5.0",
+    "body-parser": "^1.15.0",
+    "circular-json": "^0.5.5",
+    "config": "^1.21.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "ethereumjs-util": "^5.2.0",
+    "ethereumjs-wallet": "^0.6.2",
+    "express": "^4.13.4",
+    "express-bearer-token": "^2.1.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.13.0",
+    "express-validator": "^2.20.5",
+    "jsonwebtoken": "^7.3.0",
+    "log4js": "^0.6.38",
+    "method-override": "^2.3.5",
+    "web3": "latest",
+    "web3admin": "*"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "sinon": "^1.17.4",
+    "sinon-mongoose": "^1.2.1",
+    "stats-lite": "^2.0.3",
+    "supertest": "^1.2.0"
+  }
+}
