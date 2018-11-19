@@ -1,15 +1,10 @@
 {
-    "host":"127.0.0.1",
-    "port":"7545",
-    "contract":"0x8e78ffd54589c96ff958fcb6d35822810f33239c",
+    "host":"10.99.22.127",
+    "port":"8541",
+    "contract":"0x373c439180a820c46fc865b86865caae22edc307",
     "abi":[
       {
-        "inputs": [
-          {
-            "name": "tokenStorageAddress",
-            "type": "address"
-          }
-        ],
+        "inputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor"
@@ -112,6 +107,79 @@
         ],
         "payable": false,
         "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_from",
+            "type": "address"
+          },
+          {
+            "name": "_to",
+            "type": "address"
+          },
+          {
+            "name": "_value",
+            "type": "uint256"
+          }
+        ],
+        "name": "transferFrom",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_spender",
+            "type": "address"
+          },
+          {
+            "name": "_value",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_owner",
+            "type": "address"
+          },
+          {
+            "name": "_spender",
+            "type": "address"
+          }
+        ],
+        "name": "allowance",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
         "type": "function"
       }
     ]

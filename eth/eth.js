@@ -45,20 +45,20 @@ var getEth = function(web3, configPath,logger) {
         if (err != null) {
             logger.error(err);
         }else{
-            // logger.debug(util.format('====accounts:"%s"',accounts) );
+            logger.debug(util.format('====accounts:"%s"',accounts) );
         }
     });
 
 
     // web3.eth.getBalance
-    // var addr = "";
-    // web3.eth.getBalance(addr,function (err,blc) {
-    //     if (err != null) {
-    //         logger.error(err);
-    //     }else{
-    //         logger.debug(util.format('====Balance:"%s"',blc) );
-    //     }
-    // });
+    var addr = "0x887CCeC605dD79B7C0FC29c7423374ab2d88A32f";
+    web3.eth.getBalance(addr,function (err,blc) {
+        if (err != null) {
+            logger.error(err);
+        }else{
+            logger.debug(util.format('====Balance:"%s"ETH,"%s"WEI',web3.utils.fromWei(blc)),blc);
+        }
+    });
 
     // web3.eth.getBlockTransactionCount
     web3.eth.getBlockTransactionCount(9032,function(err,transactioncount){
