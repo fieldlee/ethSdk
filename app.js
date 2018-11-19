@@ -24,7 +24,7 @@ let send = require('./eth/send');
 let interface = require('./interface/interface');
 let privatekey = require('./eth/account');
 let memory = require('./memory/memory');
-let host = process.env.HOST || "127.0.0.1";
+let host = process.env.HOST || "0.0.0.0";
 let port = process.env.PORT || "3000";
 
 app.options('*', cors());

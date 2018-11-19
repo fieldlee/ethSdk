@@ -28,8 +28,7 @@
     "log4js": "^0.6.38",
     "method-override": "^2.3.5",
     "sleep": "^5.2.3",
-    "web3": "latest",
-    "web3admin": "*"
+    "web3": "latest"
   },
   "devDependencies": {
     "chai": "^3.5.0",
