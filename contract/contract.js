@@ -252,21 +252,18 @@ var transferContract = function (res,configPath, logger,address,to,value,contrac
 
 var getContractBalance = function (res,configPath, logger,addr,contractAddr) {
     var config = JSON.parse(fs.readFileSync(configPath));
-    // logger.debug(config.abi);
-    // logger.debug(config.contract);
     if (web3 == undefined) {
         let httpurl = util.format("http://%s:%s", config["host"], config["port"]);
-        // logger.debug(httpurl);
         web3 = new Web3(new Web3.providers.HttpProvider(httpurl));
-        // web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/0x2a969a70c3b376f7c0d25c34aa9bdb940906cfd954836d40000cb695ac956a32"));
         console.log('init web3 end');
     }
     var version = web3.version;
     logger.debug(version);
 
-    var contract = new web3.eth.Contract(config.abi, config.contract, { from: address });
+    var contract = new web3.eth.Contract(config.abi, config.contract);
+    
     if (contractAddr) {
-        contract = new web3.eth.Contract(config.abi, contractAddr, { from: address });
+        contract = new web3.eth.Contract(config.abi, contractAddr);
     }
 
     contract.methods.balanceOf(addr).call(function (err, result) {
