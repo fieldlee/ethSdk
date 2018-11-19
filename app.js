@@ -104,9 +104,45 @@ app.post('/send', function (req, res) {
 		return;
 	}
 	send.sentEth(res,w3,configPath,logger,from,to,value)
-	// eth.getEth(w3,configPath,logger);
 });
 
+
+
+app.post('/contractsend', function (req, res) {
+	var from;
+	var to;
+	var value ;
+	if (req.body.from){
+		from = req.body.from;
+	}else{
+		res.status(500).json({error:'请输入转出账号地址...'});
+		return;
+	}
+	if (req.body.to){
+		to = req.body.to;
+	}else{
+		res.status(500).json({error:'请输入转入账号地址...'});
+		return;
+	}
+	if (req.body.value){
+		value = req.body.value;
+	}else{
+		res.status(500).json({error:'请输入value...'});
+		return;
+	}
+	contract.transferContract(res,configPath,logger,from,to,value);
+});
+
+app.post('/contractget', function (req, res) {
+	var addr;
+	if (req.body.addr){
+		addr = req.body.addr;
+	}else{
+		res.status(500).json({error:'请输入账号地址...'});
+		return;
+	}
+	contract.getContractBalance(res,configPath,logger,addr);
+});
 
 app.post('/get', function (req, res) {
 	var addr;
@@ -148,6 +184,12 @@ app.post('/test', function (req, res) {
 
 app.post('/interface', function (req, res) {
 	interface.interface(configPath,logger);
+	res.status(200).json({info:'send...'});
+	return;
+});
+
+app.post('/memory', function (req, res) {
+	memory.getMemory();
 	res.status(200).json({info:'send...'});
 	return;
 });

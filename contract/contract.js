@@ -72,7 +72,21 @@ var getContract = function (configPath, logger) {
         // });
 
     // get info 
-    web3.eth.personal.unlockAccount(address, "password");
+    web3.eth.personal.unlockAccount(address, "password").then(
+        (reseult)=>{
+            logger.debug(util.format('==== unlockAccount result:"%s"', reseult));
+            // transfer
+            contract.methods.transfer(address1, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
+                if (err != null) {
+                    logger.error(util.format(' transfer Err: "%s"', err));
+                } else {
+                    logger.debug(util.format('==== transfer address1 result:"%s"', result));
+                }
+            });
+        },(err)=>{
+            logger.error(util.format(' unlockAccount: "%s"', err));
+        }
+    );
     // logger.debug(web3);
     // totalSupply
     contract.methods.totalSupply().call((err, result) => {
@@ -113,30 +127,23 @@ var getContract = function (configPath, logger) {
     //     }
     // });
 
-    // transfer
-    contract.methods.transfer(address1, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
-        if (err != null) {
-            logger.error(util.format(' transfer Err: "%s"', err));
-        } else {
-            logger.debug(util.format('==== transfer address1 result:"%s"', result));
-        }
-    });
+    
 
-    contract.methods.transfer(address2, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
-        if (err != null) {
-            logger.error(util.format(' transfer Err: "%s"', err));
-        } else {
-            logger.debug(util.format('==== transfer address2 result:"%s"', result));
-        }
-    });
-    // transfer
-    contract.methods.transfer(address3, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
-        if (err != null) {
-            logger.error(util.format(' transfer Err: "%s"',err));
-        } else {
-            logger.debug(util.format('==== transfer address3 result:"%s"', result));
-        }
-    });
+    // contract.methods.transfer(address2, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
+    //     if (err != null) {
+    //         logger.error(util.format(' transfer Err: "%s"', err));
+    //     } else {
+    //         logger.debug(util.format('==== transfer address2 result:"%s"', result));
+    //     }
+    // });
+    // // transfer
+    // contract.methods.transfer(address3, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
+    //     if (err != null) {
+    //         logger.error(util.format(' transfer Err: "%s"',err));
+    //     } else {
+    //         logger.debug(util.format('==== transfer address3 result:"%s"', result));
+    //     }
+    // });
 
 
     // balanceOf
@@ -205,4 +212,68 @@ var getContract = function (configPath, logger) {
     });
 };
 
+var transferContract = function (res,configPath, logger,address,to,value) {
+    var config = JSON.parse(fs.readFileSync(configPath));
+    if (web3 == undefined) {
+        let httpurl = util.format("http://%s:%s", config["host"], config["port"]);
+        // logger.debug(httpurl);
+        web3 = new Web3(new Web3.providers.HttpProvider(httpurl));
+        // web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/0x2a969a70c3b376f7c0d25c34aa9bdb940906cfd954836d40000cb695ac956a32"));
+        console.log('init web3 end');
+    }
+
+    // var address = "0x230eaaf5812f6833990bc0f39085527946a043fe";
+    var contract = new web3.eth.Contract(config.abi, config.contract, { from: address });
+
+    // get info 
+    web3.eth.personal.unlockAccount(address, "password").then(
+        (reseult)=>{
+            logger.debug(util.format('==== unlockAccount result:"%s"', reseult));
+            // transfer
+            contract.methods.transfer(to, web3.utils.toWei(value, 'ether')).send(function (err, result) {
+                if (err != null) {
+                    logger.error(util.format(' transfer Err: "%s"', err));
+                    res.status(400).json({"transcation":util.format('err:"%s"',err)});
+                } else {
+                    logger.debug(util.format('==== transfer address1 result:"%s"', result));
+                    res.status(200).json({"transcation":util.format('tx:"%s"',result)});
+                }
+            });
+        },(err)=>{
+            logger.error(util.format(' unlockAccount: "%s"', err));
+            res.status(400).json({"err":util.format('err:"%s"',err)});
+        }
+    );
+    
+};
+
+var getContractBalance = function (res,configPath, logger,addr) {
+    var config = JSON.parse(fs.readFileSync(configPath));
+    // logger.debug(config.abi);
+    // logger.debug(config.contract);
+    if (web3 == undefined) {
+        let httpurl = util.format("http://%s:%s", config["host"], config["port"]);
+        // logger.debug(httpurl);
+        web3 = new Web3(new Web3.providers.HttpProvider(httpurl));
+        // web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/0x2a969a70c3b376f7c0d25c34aa9bdb940906cfd954836d40000cb695ac956a32"));
+        console.log('init web3 end');
+    }
+    var version = web3.version;
+    logger.debug(version);
+
+    var contract = new web3.eth.Contract(config.abi, config.contract);
+
+    contract.methods.balanceOf(addr).call(function (err, result) {
+        if (err != null) {
+            logger.error(util.format(' balanceOf Err: "%s"', err));
+            res.status(400).json({"err":util.format('err:"%s"',err)});
+        } else {
+            logger.debug(util.format('==== after transfer to balanceOf from result:"%s"', result));
+            res.status(200).json({"Balance":util.format('====Balance:"%s"',result)});
+        }
+    });
+}
+
 exports.getContract = getContract;
+exports.getContractBalance = getContractBalance;
+exports.transferContract = transferContract;
