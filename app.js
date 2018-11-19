@@ -112,7 +112,7 @@ app.post('/contractsend', function (req, res) {
 	var from;
 	var to;
 	var value ;
-	var contract;
+	var contractaddr;
 	if (req.body.from){
 		from = req.body.from;
 	}else{
@@ -132,14 +132,14 @@ app.post('/contractsend', function (req, res) {
 		return;
 	}
 	if (req.body.contract){
-		contract = req.body.contract;
+		contractaddr = req.body.contract;
 	}
-	contract.transferContract(res,configPath,logger,from,to,value,contract);
+	contract.transferContract(res,configPath,logger,from,to,value,contractaddr);
 });
 
 app.post('/contractget', function (req, res) {
 	var addr;
-	var contract;
+	var contractaddr;
 	if (req.body.addr){
 		addr = req.body.addr;
 	}else{
@@ -147,9 +147,9 @@ app.post('/contractget', function (req, res) {
 		return;
 	}
 	if (req.body.contract){
-		contract = req.body.contract;
+		contractaddr = req.body.contract;
 	}
-	contract.getContractBalance(res,configPath,logger,addr,contract);
+	contract.getContractBalance(res,configPath,logger,addr,contractaddr);
 });
 
 app.post('/get', function (req, res) {
