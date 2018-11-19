@@ -212,7 +212,7 @@ var getContract = function (configPath, logger) {
     });
 };
 
-var transferContract = function (res,configPath, logger,address,to,value) {
+var transferContract = function (res,configPath, logger,address,to,value,contractAddr) {
     var config = JSON.parse(fs.readFileSync(configPath));
     if (web3 == undefined) {
         let httpurl = util.format("http://%s:%s", config["host"], config["port"]);
@@ -223,8 +223,11 @@ var transferContract = function (res,configPath, logger,address,to,value) {
     }
 
     // var address = "0x230eaaf5812f6833990bc0f39085527946a043fe";
+    
     var contract = new web3.eth.Contract(config.abi, config.contract, { from: address });
-
+    if (contractAddr) {
+        contract = new web3.eth.Contract(config.abi, contractAddr, { from: address });
+    }
     // get info 
     web3.eth.personal.unlockAccount(address, "password").then(
         (reseult)=>{
@@ -247,7 +250,7 @@ var transferContract = function (res,configPath, logger,address,to,value) {
     
 };
 
-var getContractBalance = function (res,configPath, logger,addr) {
+var getContractBalance = function (res,configPath, logger,addr,contractAddr) {
     var config = JSON.parse(fs.readFileSync(configPath));
     // logger.debug(config.abi);
     // logger.debug(config.contract);
@@ -261,7 +264,10 @@ var getContractBalance = function (res,configPath, logger,addr) {
     var version = web3.version;
     logger.debug(version);
 
-    var contract = new web3.eth.Contract(config.abi, config.contract);
+    var contract = new web3.eth.Contract(config.abi, config.contract, { from: address });
+    if (contractAddr) {
+        contract = new web3.eth.Contract(config.abi, contractAddr, { from: address });
+    }
 
     contract.methods.balanceOf(addr).call(function (err, result) {
         if (err != null) {

@@ -112,6 +112,7 @@ app.post('/contractsend', function (req, res) {
 	var from;
 	var to;
 	var value ;
+	var contract;
 	if (req.body.from){
 		from = req.body.from;
 	}else{
@@ -130,18 +131,25 @@ app.post('/contractsend', function (req, res) {
 		res.status(500).json({error:'请输入value...'});
 		return;
 	}
-	contract.transferContract(res,configPath,logger,from,to,value);
+	if (req.body.contract){
+		contract = req.body.contract;
+	}
+	contract.transferContract(res,configPath,logger,from,to,value,contract);
 });
 
 app.post('/contractget', function (req, res) {
 	var addr;
+	var contract;
 	if (req.body.addr){
 		addr = req.body.addr;
 	}else{
 		res.status(500).json({error:'请输入账号地址...'});
 		return;
 	}
-	contract.getContractBalance(res,configPath,logger,addr);
+	if (req.body.contract){
+		contract = req.body.contract;
+	}
+	contract.getContractBalance(res,configPath,logger,addr,contract);
 });
 
 app.post('/get', function (req, res) {
