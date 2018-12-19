@@ -6,7 +6,7 @@ var util = require('util');
 var fs = require('fs');
 var path = require('path');
 var Web3 = require("web3");
-var web3Admin = require('web3admin')
+
 // web3 init
 var web3;
 
