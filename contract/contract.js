@@ -76,17 +76,35 @@ var getContract = function (configPath, logger) {
         (reseult)=>{
             logger.debug(util.format('==== unlockAccount result:"%s"', reseult));
             // transfer
-            contract.methods.transfer(address1, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
+            // contract.methods.transfer(address1, web3.utils.toWei('1000', 'ether')).send(function (err, result) {
+            //     if (err != null) {
+            //         logger.error(util.format(' transfer Err: "%s"', err));
+            //     } else {
+            //         logger.debug(util.format('==== transfer address1 result:"%s"', result));
+            //     }
+            // });
+            // 0xaa3f222709629a62171cc8da5205273e67616f21
+
+            contract.methods.frozen("0xaa3f222709629a62171cc8da5205273e67616f21", web3.utils.toWei('30', 'ether')).send(function (err, result) {
                 if (err != null) {
-                    logger.error(util.format(' transfer Err: "%s"', err));
+                    logger.error(util.format(' frozen Err: "%s"', err));
                 } else {
-                    logger.debug(util.format('==== transfer address1 result:"%s"', result));
+                    logger.debug(util.format('==== frozen frozen result:"%s"', result));
                 }
             });
         },(err)=>{
             logger.error(util.format(' unlockAccount: "%s"', err));
         }
     );
+
+    contract.methods.frozenOf("0xaa3f222709629a62171cc8da5205273e67616f21").call((err, result) => {
+        if (err != null) {
+            logger.error(util.format(' frozenOf Err: "%s"', err));
+        } else {
+            logger.debug(util.format('==== frozenOf result:"%s"', result));
+        }
+    });
+
     // logger.debug(web3);
     // totalSupply
     contract.methods.totalSupply().call((err, result) => {
@@ -97,11 +115,11 @@ var getContract = function (configPath, logger) {
         }
     });
     // balanceOf
-    contract.methods.balanceOf(address).call(function (err, result) {
+    contract.methods.balanceOf("0xaa3f222709629a62171cc8da5205273e67616f21").call(function (err, result) {
         if (err != null) {
             logger.error(util.format(' balanceOf Err: "%s"', err));
         } else {
-            logger.debug(util.format('==== balanceOf address result:"%s"', result));
+            logger.debug(util.format('==== balanceOf 0xaa3f222709629a62171cc8da5205273e67616f21 result:"%s"', result));
         }
     });
     contract.methods.balanceOf(address1).call(function (err, result) {

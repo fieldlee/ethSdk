@@ -74,7 +74,7 @@ var getEth = function(web3, configPath,logger) {
     // ///////////////////////////////////////////////////////////////////////
     ////////////////////////////Hash
     // ///////////////////////////////////////////////////////////////////////
-    var tranHash = "0xd58dbcbcf74cea7188122155edf0dcaca94c002bbc89f1cc5a6e47276f034293";
+    var tranHash = "0xe1709909b2a4e073281b247c40480f1afb07ae2b8c24d1f16fc37c10150d4952";
     web3.eth.getTransaction(tranHash,function (err,transaction) {
         if (err != null) {
             logger.error(err);
