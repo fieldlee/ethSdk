@@ -4,7 +4,7 @@
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
-var sleep = require("sleep");
+
 var sentEth = function(res,web3, configPath,logger,from,to,value) {
 
     var config = JSON.parse(fs.readFileSync(configPath));
