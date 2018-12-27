@@ -1,7 +1,7 @@
 {
-    "host":"127.0.0.1",
+    "host":"10.99.22.139",
     "port":"8541",
-    "contract":"0x4934a245837e7e5f7f7cbb8047b8646b8bafc3f8",
+    "contract":"0x9e0204984dfb864ce91d8394d88b801c81ca2d32",
     "abi":[
       {
         "constant": true,
@@ -83,39 +83,6 @@
         "type": "function"
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_value",
-            "type": "uint256"
-          }
-        ],
-        "name": "burn",
-        "outputs": [
-          {
-            "name": "success",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "sellPrice",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "constant": true,
         "inputs": [
           {
@@ -124,43 +91,6 @@
           }
         ],
         "name": "balanceOf",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_from",
-            "type": "address"
-          },
-          {
-            "name": "_value",
-            "type": "uint256"
-          }
-        ],
-        "name": "burnFrom",
-        "outputs": [
-          {
-            "name": "success",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "buyPrice",
         "outputs": [
           {
             "name": "",
@@ -306,13 +236,13 @@
         "inputs": [
           {
             "indexed": false,
-            "name": "target",
+            "name": "_taget",
             "type": "address"
           },
           {
             "indexed": false,
-            "name": "frozen",
-            "type": "bool"
+            "name": "_value",
+            "type": "uint256"
           }
         ],
         "name": "FrozenFunds",
@@ -360,23 +290,6 @@
           }
         ],
         "name": "Approval",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "from",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "Burn",
         "type": "event"
       },
       {
@@ -475,65 +388,6 @@
         "constant": false,
         "inputs": [
           {
-            "name": "target",
-            "type": "address"
-          },
-          {
-            "name": "mintedAmount",
-            "type": "uint256"
-          }
-        ],
-        "name": "mintToken",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "newSellPrice",
-            "type": "uint256"
-          },
-          {
-            "name": "newBuyPrice",
-            "type": "uint256"
-          }
-        ],
-        "name": "setPrices",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "buy",
-        "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "sell",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
             "name": "_owner",
             "type": "address"
           },
@@ -584,6 +438,15 @@
             "type": "bool"
           }
         ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "kill",
+        "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
